@@ -1,0 +1,81 @@
+models:
+  ProductCategory:
+    name: string
+    slug: string
+    relationships:
+      hasMany: Product
+
+  PostCategory:
+    name: string
+    slug: string
+    relationships:
+      hasMany: Post
+
+  Slider:
+    thumbnail: string
+    tagline: string
+    title: string
+    content: text nullable
+
+  Banner:
+    title: string
+    image: string
+
+  Post:
+    post_category_id: foreign
+    user_id: foreign
+    thumbnail: string
+    title: string
+    slug: string
+    content: text
+    status: string
+    published_at: timestamp
+
+  Product:
+    category_id: foreign
+    thumbnail: string
+    name: string
+    slug: string
+    sku: string
+    price: integer
+    description: text nullable
+    relationships:
+      hasMany: Cart, OrderDetail, ProductStock, ProductImage
+
+  ProductStock:
+    product_id: foreign
+    quantity: integer
+    size: string
+
+  ProductImage:
+    product_id: foreign
+    image: string nullable
+
+  Cart:
+    product_id: foreign
+    qty: integer
+    price: bigInteger
+
+  Order:
+    order_number: string unique
+    user_id: foreign
+    discount: integer nullable
+    total: integer
+    profit: integer nullable
+    order_status: string
+    payment_status: string
+    payment_date: timestamp
+    order_date: timestamp
+    payment_method: string
+    relationships:
+      hasMany: OrderDetail
+
+  OrderDetail:
+    transaction_id: foreign
+    product_id: foreign
+    qty: integer
+    price: bigInteger
+    subtotal: integer
+
+controllers:
+  # ...

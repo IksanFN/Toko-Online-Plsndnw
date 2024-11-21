@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends Model
+class TransactionDetail extends Model
 {
     use HasFactory;
 
@@ -17,14 +16,11 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id',
-        'thumbnail',
-        'name',
-        'slug',
-        'sku',
+        'transaction_id',
+        'product_id',
+        'qty',
         'price',
-        'size',
-        'description',
+        'subtotal',
     ];
 
     /**
@@ -34,22 +30,18 @@ class Product extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'category_id' => 'integer',
+        'transaction_id' => 'integer',
+        'product_id' => 'integer',
         'price' => 'integer',
     ];
 
-    public function carts(): HasMany
+    public function transaction(): BelongsTo
     {
-        return $this->hasMany(Cart::class);
+        return $this->belongsTo(Transaction::class);
     }
 
-    public function transactionDetails(): HasMany
+    public function product(): BelongsTo
     {
-        return $this->hasMany(TransactionDetail::class);
-    }
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Product::class);
     }
 }
