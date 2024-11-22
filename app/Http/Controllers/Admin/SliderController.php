@@ -7,25 +7,16 @@ use App\Models\Slider;
 use App\Models\SliderCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SliderController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->search) {
+        $sliders = Slider::search($request->search)->latest()->paginate(10);
 
-            $sliders = Slider::query()->whereAny(['title', 'tagline'], 'LIKE', '%'.$request->search.'%')
-                        ->latest()
-                        ->paginate(10)
-                        ->withQueryString();
-        } else {
-
-            $sliders = Slider::query()->latest()->paginate(10);
-
-        }
-
-        return view('admin.slider.index', compact('sliders'));
+        return view('admin.sliders.index', compact('sliders'));
     }
 
     public function create()
@@ -36,7 +27,7 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $thumbnail = $request->file('thumbnail');
-        $thumbnail->StoreAs('thumbnail', $thumbnail->hashName());
+        $thumbnail->storeAs('public/thumbnails', $thumbnail->hashName());
         try {
 
             DB::transaction(function () use ($request, $thumbnail) {
@@ -61,35 +52,68 @@ class SliderController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Slider $slider)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Slider $slider)
     {
-        //
+        return view('admin.sliders.edit', compact('slider'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SliderCategory $sliderCategory)
+    public function update(Request $request, Slider $slider)
     {
-        //
+        try {
+            DB::transaction(function () use ($request, $slider) {
+
+                if ($request->hasFile('thumbnail')) {
+
+                    $thumbnail = $request->file('thumbnail');
+                    $thumbnail->storeAs('thumbnail', $thumbnail->hashName());
+
+                    Storage::delete('public/thumbnail/'.$slider->thumbnail);
+
+                    $slider->update([
+                        'thumbnail' => $thumbnail->hashName(),
+                        'title' => $request->input('title'),
+                        'tagline' => $request->input('tagline'),
+                        'content' => $request->input('content'),
+                    ]);
+                } else {
+                    $slider->update([
+                        'title' => $request->input('title'),
+                        'tagline' => $request->input('tagline'),
+                        'content' => $request->input('content'),
+                    ]);
+                }
+
+            });
+
+            Alert::success('Success', 'Slider Updated Successfully');
+            return redirect()->route('admin.sliders.index');
+
+        } catch (\Throwable $th) {
+
+            Alert::success('Error', 'Error Creating Slider');
+            return redirect()->route('admin.sliders.index');
+
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SliderCategory $sliderCategory)
+    public function destroy(Slider $slider)
     {
-        //
+        DB::beginTransaction();
+        try {
+
+            $slider->delete();
+            DB::commit();
+
+            Alert::success('Success', 'Slider Deleted Successfully');
+            return redirect()->route('admin.sliders.index');
+
+        } catch (\Throwable $th) {
+
+            DB::rollback();
+
+            Alert::error('Error', 'Error Creating Slider');
+            return redirect()->route('admin.sliders.index');
+
+        }
     }
 }

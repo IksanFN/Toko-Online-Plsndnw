@@ -29,4 +29,11 @@ class Slider extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($query) use ($search) {
+            return $query->whereAny(['tagline', 'title'], 'like', '%' . $search . '%');
+        });
+    }
 }

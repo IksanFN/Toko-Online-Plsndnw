@@ -13,15 +13,7 @@ class ProductCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->search) {
-            $productCategories = ProductCategory::where('name', 'LIKE', '%'.$request->search.'%')
-                            ->latest()
-                            ->paginate(10)
-                            ->withQueryString();
-        } else {
-            $productCategories = ProductCategory::query()->latest()->paginate(10);
-        }
-
+        $productCategories = ProductCategory::search($request->search)->latest()->paginate(10);
         return view('admin.product-categories.index', compact('productCategories'));
     }
 
@@ -46,11 +38,11 @@ class ProductCategoryController extends Controller
             });
 
             Alert::success('Success', 'Product Category created successfully!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
 
         } catch (\Throwable $th) {
             Alert::error('Error', 'Something went wrong!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
         }
     }
 
@@ -78,12 +70,12 @@ class ProductCategoryController extends Controller
             });
 
             Alert::success('Success', 'Product Category updated successfully!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
 
         } catch (\Throwable $th) {
 
             Alert::error('Error', 'Something went wrong!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
 
         }
     }
@@ -97,14 +89,14 @@ class ProductCategoryController extends Controller
             DB::commit();
 
             Alert::success('Success', 'Product Category deleted successfully!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
 
         } catch (\Throwable $th) {
 
             DB::rollback();
 
             Alert::error('Error', 'Something went wrong!');
-            return redirect()->route('admin.product_categories.index');
+            return redirect()->route('admin.products.categories.index');
 
         }
     }

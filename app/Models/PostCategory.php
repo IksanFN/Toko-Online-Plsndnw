@@ -33,4 +33,13 @@ class PostCategory extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($query) use ($search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
+
+
 }

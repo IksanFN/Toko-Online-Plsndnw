@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,7 +36,6 @@ class Post extends Model
         'post_category_id' => 'integer',
         'user_id' => 'integer',
         'published_at' => 'timestamp',
-        'status' => PostStatus::class,
     ];
 
     public function postCategory(): BelongsTo

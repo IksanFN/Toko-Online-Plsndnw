@@ -23,7 +23,6 @@ class Product extends Model
         'slug',
         'sku',
         'price',
-        'size',
         'description',
     ];
 
@@ -35,7 +34,6 @@ class Product extends Model
     protected $casts = [
         'id' => 'integer',
         'category_id' => 'integer',
-        'price' => 'integer',
     ];
 
     public function carts(): HasMany
@@ -43,9 +41,19 @@ class Product extends Model
         return $this->hasMany(Cart::class);
     }
 
-    public function transactionDetails(): HasMany
+    public function orderDetails(): HasMany
     {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function productStocks(): HasMany
+    {
+        return $this->hasMany(ProductStock::class);
+    }
+
+    public function productImages(): HasMany
+    {
+        return $this->hasMany(ProductImage::class);
     }
 
     public function category(): BelongsTo
