@@ -8,6 +8,11 @@ enum PostStatus: string
     case PUBLISHED = 'published';
     case ARCHIVED = 'archived';
 
+    public static function getLabels(): array
+    {
+        return array_column(PostStatus::cases(), 'value');
+    }
+
     public function getLabel() : string
     {
         return match ($this) {
