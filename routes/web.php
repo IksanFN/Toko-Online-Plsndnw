@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PostCategoryController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProfileController;
@@ -51,6 +52,19 @@ Route::middleware('auth')->group(function () {
                 Route::get('/edit/{slider}', 'edit')->name('edit');
                 Route::put('/update/{slider}', 'update')->name('update');
                 Route::delete('/destroy/{slider}', 'destroy')->name('destroy');
+            });
+        });
+
+        // Route Posts
+        Route::prefix('posts')->name('posts.')->group(function () {
+            Route::controller(PostController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::get('/show/{post}', 'show')->name('show');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/{post}/edit', 'edit')->name('edit');
+                Route::put('/update/{post}', 'update')->name('update');
+                Route::delete('/destroy/{post}', 'destroy')->name('destroy');
             });
         });
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('content');
             $table->string('status');
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
 
