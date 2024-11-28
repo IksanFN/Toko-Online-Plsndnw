@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\Post\PostStore;
+use App\Http\Requests\Admin\Post\PostUpdate;
 use id;
 use App\Models\Post;
 use App\Models\Category;
@@ -31,7 +33,7 @@ class PostController extends Controller
         return view('admin.posts.create', compact('postCategories', 'postStatuses'));
     }
 
-    public function store(Request $request)
+    public function store(PostStore $request)
     {
         $thumbnail = $request->file('thumbnail');
         $thumbnail->storeAs('public/posts', $thumbnail->hashName());
@@ -78,7 +80,7 @@ class PostController extends Controller
         return view('admin.posts.edit', compact('post', 'postCategories', 'postStatuses'));
     }
 
-    public function update(Request $request, Post $post)
+    public function update(PostUpdate $request, Post $post)
     {
         try {
             DB::transaction(function () use ($request, $post) {
