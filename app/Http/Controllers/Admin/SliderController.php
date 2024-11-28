@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Slider\SliderStore;
+use App\Http\Requests\Admin\Slider\SliderUpdate;
 use App\Models\Slider;
 use App\Models\SliderCategory;
 use Illuminate\Http\Request;
@@ -24,7 +26,7 @@ class SliderController extends Controller
         return view('admin.sliders.create');
     }
 
-    public function store(Request $request)
+    public function store(SliderStore $request)
     {
         $thumbnail = $request->file('thumbnail');
         $thumbnail->storeAs('public/thumbnails', $thumbnail->hashName());
@@ -57,7 +59,7 @@ class SliderController extends Controller
         return view('admin.sliders.edit', compact('slider'));
     }
 
-    public function update(Request $request, Slider $slider)
+    public function update(SliderUpdate $request, Slider $slider)
     {
         try {
             DB::transaction(function () use ($request, $slider) {
@@ -65,9 +67,9 @@ class SliderController extends Controller
                 if ($request->hasFile('thumbnail')) {
 
                     $thumbnail = $request->file('thumbnail');
-                    $thumbnail->storeAs('thumbnail', $thumbnail->hashName());
+                    $thumbnail->storeAs('public/thumbnails', $thumbnail->hashName());
 
-                    Storage::delete('public/thumbnail/'.$slider->thumbnail);
+                    Storage::delete('public/thumbnails/'.$slider->thumbnail);
 
                     $slider->update([
                         'thumbnail' => $thumbnail->hashName(),

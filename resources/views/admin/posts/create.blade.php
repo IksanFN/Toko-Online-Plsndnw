@@ -1,7 +1,7 @@
-<x-master-layout title="Create Category">
+<x-master-layout title="Create Post">
 
     @section('header')
-        <h5>Create Category Product</h5>
+        <h5>Create Post</h5>
     @endsection
 
     <div class="row justify-content-center">
@@ -44,10 +44,16 @@
                                     <option value="{{ $status }}">{{ ucwords($status) }}</option>
                                 @endforeach
                             </select>
+                            @error('status')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Content</label>
                             <textarea id="mytextarea" name="content" class="form-control"></textarea>
+                            @error('content')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="mt-3 text-center">
                             <button type="submit" class="btn btn-dark px-4 shadow-sm">

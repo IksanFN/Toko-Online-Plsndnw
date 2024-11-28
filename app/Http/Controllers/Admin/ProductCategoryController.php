@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ProductCategory\ProductCategoryStore;
+use App\Http\Requests\Admin\ProductCategory\ProductCategoryUpdate;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,10 +24,7 @@ class ProductCategoryController extends Controller
         return view('admin.product-categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(ProductCategoryStore $request)
     {
         try {
             DB::transaction(function () use ($request) {
@@ -56,7 +55,7 @@ class ProductCategoryController extends Controller
         return view('admin.product-categories.edit', compact('productCategory'));
     }
 
-    public function update(Request $request, ProductCategory $productCategory)
+    public function update(ProductCategoryUpdate $request, ProductCategory $productCategory)
     {
         try {
 
