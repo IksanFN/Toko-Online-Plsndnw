@@ -11,11 +11,12 @@ class ProductCategoryStore extends FormRequest
         return true;
     }
 
-   
+
     public function rules(): array
     {
         return [
             'name' => ['required', 'string'],
+            'code' => ['required', 'string', 'unique:product_categories,code'],
         ];
     }
 }

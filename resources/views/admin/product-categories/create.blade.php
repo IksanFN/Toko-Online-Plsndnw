@@ -12,9 +12,16 @@
                         @csrf
                         <div class="mb-3">
                             <label for="title" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" placeholder="Enter the name..">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Code Category</label>
+                            <input type="text" class="form-control" name="code" placeholder="Enter the unique code..">
+                            @error('code')
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mt-3 text-center">

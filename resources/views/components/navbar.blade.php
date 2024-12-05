@@ -30,6 +30,12 @@
                         Posts
                     </x-navbar-link>
                 </li>
+
+                <li class="nav-item">
+                    <x-navbar-link :href="route('admin.products.index')" :active="request()->routeIs(['admin.products.index', 'admin.products.create', 'admin.products.edit', 'admin.products.show'])">
+                        Products
+                    </x-navbar-link>
+                </li>
             </ul>
             {{-- @auth --}}
             <div class="flex-shrink-0 dropdown">

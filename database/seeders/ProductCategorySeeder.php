@@ -14,15 +14,18 @@ class ProductCategorySeeder extends Seeder
         $productCategories = [
             [
                 'name' => 'Clothes',
-                'slug' => Str::slug('Clothes')
+                'slug' => Str::slug('Clothes'),
+                'code' => 'CTS',
             ],
             [
                 'name' => 'Shoes',
-                'slug' => Str::slug('Shoes')
+                'slug' => Str::slug('Shoes'),
+                'code' => 'SHS',
             ],
             [
                 'name' => 'T-Shirts',
-                'slug' => Str::slug('T-Shirts')
+                'slug' => Str::slug('T-Shirts'),
+                'code' => 'TSS',
             ],
         ];
 
