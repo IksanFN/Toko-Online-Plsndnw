@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ImageProductController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +69,29 @@ Route::middleware('auth')->group(function () {
                 Route::put('/update/{post}', 'update')->name('update');
                 Route::delete('/destroy/{post}', 'destroy')->name('destroy');
             });
+        });
+
+        // Route Products
+        Route::prefix('products')->name('products.')->group(function () {
+
+            // Product
+            Route::controller(ProductController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::get('/show/{product}', 'show')->name('show');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/{product}/edit', 'edit')->name('edit');
+                Route::put('/update/{product}', 'update')->name('update');
+                Route::delete('/destroy/{product}', 'destroy')->name('destroy');
+            });
+
+            // Product Image
+            Route::controller(ProductImageController::class)->group(function () {
+                Route::get('/add-image/{product}', 'create')->name('add_image');
+                Route::post('/add-image/{product}', 'store')->name('store_image');
+                Route::delete('/{productImage}', 'destroy')->name('delete_image');
+            });
+
         });
 
     });

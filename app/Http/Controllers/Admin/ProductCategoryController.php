@@ -32,6 +32,7 @@ class ProductCategoryController extends Controller
                 ProductCategory::query()->create([
                     'name' => $request->input('name'),
                     'slug' => Str::slug($request->input('name')),
+                    'code' => $request->input('code'),
                 ]);
 
             });
@@ -64,6 +65,7 @@ class ProductCategoryController extends Controller
                 $productCategory->update([
                     'name' => $request->input('name'),
                     'slug' => Str::slug($request->input('name')),
+                    'code' => $request->input('code'),
                 ]);
 
             });
