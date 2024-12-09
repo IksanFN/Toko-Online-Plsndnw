@@ -22,8 +22,8 @@ return new class extends Migration
             $table->integer('profit')->nullable();
             $table->string('order_status');
             $table->string('payment_status');
-            $table->timestamp('payment_date');
-            $table->timestamp('order_date');
+            $table->dateTime('payment_date');
+            $table->dateTime('order_date');
             $table->string('payment_method');
             $table->timestamps();
         });

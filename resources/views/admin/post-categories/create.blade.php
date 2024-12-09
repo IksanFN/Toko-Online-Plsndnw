@@ -17,6 +17,13 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Slug</label>
+                            <input type="text" class="form-control" name="slug">
+                            @error('slug')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mt-3 text-center">
                             <button type="submit" class="btn btn-dark px-4 shadow-sm">
                                 Create

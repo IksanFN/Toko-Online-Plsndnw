@@ -30,7 +30,7 @@ class PostCategoryController extends Controller
 
                 $postCategory = PostCategory::query()->create([
                     'name' => $request->input('name'),
-                    'slug' => Str::slug($request->input('name')),
+                    'slug' => Str::slug($request->input('slug')),
                 ]);
 
             });
@@ -60,7 +60,7 @@ class PostCategoryController extends Controller
             DB::transaction(function () use ($request, $postCategory) {
                 $postCategory->update([
                     'name' => $request->input('name'),
-                    'slug' => Str::slug($request->input('name')),
+                    'slug' => Str::slug($request->input('slug')),
                 ]);
             });
 

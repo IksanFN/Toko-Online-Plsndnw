@@ -32,6 +32,7 @@
                             <thead>
                             <th>No</th>
                             <th>Name</th>
+                            <th>Slug</th>
                             <th class="text-center">Action</th>
                             </thead>
                             <tbody class="align-middle">
@@ -39,6 +40,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $category->name }}</td>
+                                    <td>{{ $category->slug }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('admin.posts.categories.edit', $category->id) }}" class="btn btn-dark"><i class="bi bi-pencil-square"></i></a>
                                         <button type="button" class="btn btn-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#delete{{ $category->id }}">
