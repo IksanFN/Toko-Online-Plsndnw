@@ -36,6 +36,12 @@
                         Products
                     </x-navbar-link>
                 </li>
+
+                <li class="nav-item">
+                    <x-navbar-link :href="route('admin.product_stocks.index')" :active="request()->routeIs(['admin.product_stocks.index', 'admin.product_stocks.create', 'admin.product_stocks.edit', 'admin.product_stocks.show'])">
+                        Product Stocks
+                    </x-navbar-link>
+                </li>
             </ul>
             {{-- @auth --}}
             <div class="flex-shrink-0 dropdown">

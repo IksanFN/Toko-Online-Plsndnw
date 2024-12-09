@@ -35,4 +35,13 @@ class ProductStock extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($query) use ($search) {
+            return $query->whereHas('product', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        });
+    }
 }

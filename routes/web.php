@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\ImageProductController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
+use App\Http\Controllers\Admin\ProductStockController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -92,6 +92,18 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/{productImage}', 'destroy')->name('delete_image');
             });
 
+        });
+
+        // Route Product Stocks
+        Route::prefix('product-stocks')->name('product_stocks.')->group(function () {
+            Route::controller(ProductStockController::class)->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/create', 'create')->name('create');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/edit/{productStock}', 'edit')->name('edit');
+                Route::put('/update/{productStock}', 'update')->name('update');
+                Route::delete('/destroy/{productStock}', 'destroy')->name('destroy');
+            });
         });
 
     });
