@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +37,7 @@ class Post extends Model
         'post_category_id' => 'integer',
         'user_id' => 'integer',
         'published_at' => 'timestamp',
+        'status' => 'string',
     ];
 
     public function postCategory(): BelongsTo
@@ -46,5 +48,17 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

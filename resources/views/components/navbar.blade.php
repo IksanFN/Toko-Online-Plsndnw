@@ -19,10 +19,22 @@
                     Master Data
                   </a>
                   <ul class="dropdown-menu border-0 shadow-smooth p-3">
-                    <li><a wire:navigate class="dropdown-item" href="{{ route('admin.products.categories.index') }}">Product Categories</a></li>
-                    <li><a wire:navigate class="dropdown-item" href="{{ route('admin.posts.categories.index') }}">Post Categories</a></li>
-                    <li><a wire:navigate class="dropdown-item" href="{{ route('admin.sliders.index') }}">Sliders</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.products.categories.index') }}">Product Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.posts.categories.index') }}">Post Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('admin.sliders.index') }}">Sliders</a></li>
                   </ul>
+                </li>
+
+                <li class="nav-item">
+                    <x-navbar-link :href="route('admin.posts.index')" :active="request()->routeIs(['admin.posts.index', 'admin.posts.create', 'admin.posts.edit', 'admin.posts.show'])">
+                        Posts
+                    </x-navbar-link>
+                </li>
+
+                <li class="nav-item">
+                    <x-navbar-link :href="route('admin.products.index')" :active="request()->routeIs(['admin.products.index', 'admin.products.create', 'admin.products.edit', 'admin.products.show'])">
+                        Products
+                    </x-navbar-link>
                 </li>
             </ul>
             {{-- @auth --}}
@@ -32,8 +44,8 @@
                     <img src="{{ asset('storage/avatar/'.Auth::user()->avatar) }}" width="40" height="40" class="ms-2 rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small shadow-smooth border-0">
-                    <li><a wire:navigate class="dropdown-item" href="{{ route('dashboard') }}">My Dashboard</a></li>
-                    <li><a wire:navigate class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">My Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <form action="{{ route('logout') }}" method="post">

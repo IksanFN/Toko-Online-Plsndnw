@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use App\Models\PostCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PostCategorySeeder extends Seeder
 {
@@ -13,12 +14,15 @@ class PostCategorySeeder extends Seeder
         $postCategories = [
             [
                 'name' => 'Web Development',
+                'slug' => Str::slug('Web Development')
             ],
             [
                 'name' => 'Graphics Design',
+                'slug' => Str::slug('Graphics Design')
             ],
             [
                 'name' => 'Sepak Bola',
+                'slug' => Str::slug('Sepak Bola')
             ]
         ];
 

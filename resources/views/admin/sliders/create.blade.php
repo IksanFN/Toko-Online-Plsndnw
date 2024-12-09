@@ -34,9 +34,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">Content</label>
-                            <textarea class="form-control" name="content"></textarea>
+                            <textarea class="form-control" name="content" id="summernote"></textarea>
                             @error('content')
-                            <span class="text-danger">{{ $message }}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mt-3 text-center">

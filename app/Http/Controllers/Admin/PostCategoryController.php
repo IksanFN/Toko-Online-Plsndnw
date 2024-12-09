@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Post\PostStore;
+use App\Http\Requests\Admin\Post\PostUpdate;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +25,7 @@ class PostCategoryController extends Controller
         return view('admin.post-categories.create');
     }
 
-    public function store(Request $request)
+    public function store(PostStore $request)
     {
         try {
             DB::transaction(function () use ($request) {
@@ -51,10 +53,7 @@ class PostCategoryController extends Controller
         return view('admin.post-categories.edit', compact('postCategory'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PostCategory $postCategory)
+    public function update(PostUpdate $request, PostCategory $postCategory)
     {
         try {
             DB::transaction(function () use ($request, $postCategory) {

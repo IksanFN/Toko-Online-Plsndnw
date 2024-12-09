@@ -15,7 +15,14 @@
                             <label for="title" class="form-label">Name</label>
                             <input type="text" class="form-control" name="name" value="{{ $productCategory->name }}">
                             @error('name')
-                            <span class="text-danger">{{ $message }}</span>
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Code Category</label>
+                            <input type="text" class="form-control" name="code" value="{{ $productCategory->code }}">
+                            @error('code')
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mt-3 text-center">

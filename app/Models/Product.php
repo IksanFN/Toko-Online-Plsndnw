@@ -17,7 +17,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'category_id',
+        'product_category_id',
         'thumbnail',
         'name',
         'slug',
@@ -56,8 +56,47 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function category(): BelongsTo
+    public function productCategory(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function ($query) use ($search) {
+            return $query->whereAny(['name', 'sku'], 'like', '%' . $search . '%');
+        });
+    }
+
+    public static function generateSKU($category)
+    {
+        // Get Code Category
+        $prefixCategory = ProductCategory::query()->where('id', $category)->first();
+
+        // Check the last product
+        $lastProduct = self::query()->where('product_category_id', $category)->latest()->first();
+
+        // Check the last sku number
+        $lastNumber = $lastProduct ? (int) substr($lastProduct->sku, -4) : 0;
+
+        // Generate new number
+        $newNumber = str_pad($lastNumber + 1, 6, '0', STR_PAD_LEFT);
+
+        // Generate SKU
+        $newSKU = "SKU$prefixCategory->code$newNumber";
+        return $newSKU;
+    }
+
+    public static function updateSKU($idProductCategory)
+    {
+        $newCategory = ProductCategory::query()->find($idProductCategory);
+        $lastProductInNewCategory = Product::query()->where('product_category_id', $newCategory->id)->latest()->first();
+        $lastNumber = $lastProductInNewCategory ? (int) substr($lastProductInNewCategory->sku, -4) : 0;
+
+        // Generate SKU baru
+        $newNumber = str_pad($lastNumber + 1, 6, '0', STR_PAD_LEFT);
+        $newSKU = "SKU$newCategory->code$newNumber";
+
+        return $newSKU;
     }
 }
