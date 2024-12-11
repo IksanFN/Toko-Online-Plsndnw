@@ -1,0 +1,10 @@
+<script src="temp-front/js/jquery-3.3.1.min.js"></script>
+<script src="temp-front/js/bootstrap.min.js"></script>
+<script src="temp-front/js/jquery.nice-select.min.js"></script>
+<script src="temp-front/js/jquery.nicescroll.min.js"></script>
+<script src="temp-front/js/jquery.magnific-popup.min.js"></script>
+<script src="temp-front/js/jquery.countdown.min.js"></script>
+<script src="temp-front/js/jquery.slicknav.js"></script>
+<script src="temp-front/js/mixitup.min.js"></script>
+<script src="temp-front/js/owl.carousel.min.js"></script>
+<script src="temp-front/js/main.js"></script>
