@@ -99,4 +99,5 @@ class Product extends Model
 
         return $newSKU;
     }
+
 }
