@@ -5,7 +5,7 @@ namespace App\Enums;
 enum SizeType: string
 {
     case XS = 'XS';
-    case S = 'S';Pdrfa
+    case S = 'S';
     case M = 'M';
     case L = 'L';
     case XL = 'XL';

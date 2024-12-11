@@ -38,7 +38,7 @@
                                 @endforeach
                             </select>
                             @error('size')
-                            <span class="text-danger">{{ $message }}</span>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
 
