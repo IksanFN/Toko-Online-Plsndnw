@@ -1,7 +1,7 @@
 <x-auth-layout title="Login">
 
     @section('header')
-        <h3 class="text-center mt-5">Welcome Back to <span class="text-dark fw-bold">PLSNDNW.</span></h3>
+        <h3 class="text-center mt-5">Welcome Back to <b><i><span class="text-dark fw-bold">PLSNDNW.</b></i></span></h3>
     @endsection
 
     <div class="row justify-content-center mt-4">

@@ -10,8 +10,10 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('landingpage.landingmaster');
+Route::get('/', function () { return view('landingpage.landingmaster');
+});
+
+Route::get('/shop', function () { return view('landingpage.shop');
 });
 
 Route::get('/dashboard', function () {
