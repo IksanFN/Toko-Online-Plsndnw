@@ -50,7 +50,7 @@
                                         </td>
                                         <td>{{ $slider->tagline }}</td>
                                         <td>{{ $slider->title }}</td>
-                                        <td>{{ $slider->content }}</td>
+                                        <td>{{ Str::limit($slider->content, 20, '...') }}</td>
                                         <td class="text-center flex gap-2">
                                             <a href="{{ route('admin.sliders.edit', $slider->id) }}" class="btn btn-dark"><i class="bi bi-pencil-square"></i></a>
                                             <button type="button" class="btn btn-dark shadow-sm" data-bs-toggle="modal" data-bs-target="#view{{ $slider->id }}">
